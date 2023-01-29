@@ -35,3 +35,27 @@ export const createUser = makeEndpoint({
 		}
 	]
 })
+
+export const getUser = makeEndpoint({
+	method: 'get',
+	path: '/users/:id',
+	alias: 'getUser',
+	description: 'Get one user',
+	status: 200,
+	response: z.object({
+		data: z.object({
+			id: z.string().uuid(),
+			mail: z.string().email(),
+			role_id: z.string().uuid()
+		})
+	}),
+	errors: [
+		{
+			status: 'default',
+			schema: z.object({
+				error: z.string(),
+				code: z.number()
+			})
+		}
+	]
+})
